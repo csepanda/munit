@@ -1,11 +1,13 @@
-package csepanda.munit.runner.services;
+package csepanda.munit.runner.services.simple;
 
 import csepanda.munit.runner.core.ITestPlan;
 import csepanda.munit.runner.core.TestPlanRecord;
 import csepanda.munit.runner.core.simple.SimpleTestPlan;
+import csepanda.munit.runner.services.ITestPlanner;
+import csepanda.munit.runner.services.TestAnnotationFilter;
 
-public class TestPlanBuilder {
-    public ITestPlan build(Iterable<Class<?>> classes) {
+public class SimpleTestPlanner implements ITestPlanner {
+    public ITestPlan plan(Iterable<Class<?>> classes) {
         var testPlan = new SimpleTestPlan();
         var annotationFilter = new TestAnnotationFilter();
 
