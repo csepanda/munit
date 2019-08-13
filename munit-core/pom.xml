@@ -10,7 +10,7 @@
 
     <properties>
         <jdk.version.sources>11</jdk.version.sources>
-        <jdk.version.target>1.8</jdk.version.target>
+        <jdk.version.target>11</jdk.version.target>
     </properties>
     <build>
         <finalName>munit-core</finalName>
@@ -22,6 +22,7 @@
                 <configuration>
                     <source>${jdk.version.sources}</source>
                     <target>${jdk.version.target}</target>
+                    <compilerArgument>-proc:none</compilerArgument>
                 </configuration>
             </plugin>
         </plugins>
