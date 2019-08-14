@@ -77,7 +77,24 @@ public class SimpleExecutorTest {
     }
 
     @Test
-    public void
+    public void invocationIssueSingleTest() {
+        var executor = new SimpleExecutor(objectBuilder);
+        var testPlanMock = mock(ITestPlan.class);
+
+        when(testPlanMock.getPlan()).thenReturn(Collections.singletonList(
+            new TestPlanRecord(this.invoicationIssueMethod, ITestClassFramework.class)
+        ));
+
+        var testResults = executor.execute(testPlanMock);
+        var actualResults = new ArrayList<TestResult>();
+
+        testResults.forEach(actualResults::add);
+
+        Assert.assertEquals("Only one result should be received", 1, actualResults.size());
+        Assert.assertEquals("Result should be fail", TestStatus.NOT_RUNNED, actualResults.get(0).getStatus());
+
+        invocationCountHelper(0, 0, 0);
+    }
 
     private void invocationCountHelper(int success, int fail, int invocationIssue) {
         verify(testClass, times(success)).success();
