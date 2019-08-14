@@ -29,7 +29,7 @@ public class LauncherServicesProducer {
 
         switch (runMode) {
             case SIMPLE:
-                return new Launcher(testPlanner(options), executor(options));
+                return new csepanda.munit.runner.services.Launcher(testPlanner(options), executor(options));
             case CONCURRENT:
                 throw new UnsupportedOperationException("Unsupported run mode for launcher: " + runMode);
             default:
