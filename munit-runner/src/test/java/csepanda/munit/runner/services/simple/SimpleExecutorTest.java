@@ -7,7 +7,6 @@ import csepanda.munit.runner.core.TestStatus;
 import csepanda.munit.runner.services.ITestClassBuilder;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
@@ -54,13 +53,10 @@ public class SimpleExecutorTest {
         Assert.assertEquals("Only one result should be received", 1, actualResults.size());
         Assert.assertEquals("Result should be success", TestStatus.SUCCESS, actualResults.get(0).getStatus());
 
-        verify(testClass, times(1)).success();
-        verify(testClass, times(0)).fail();
-        verify(testClass, times(0)).invocationIssue(any());
+        invocationCountHelper(1, 0, 0);
     }
 
     @Test
-    @Ignore
     public void failSingleTest() {
         var executor = new SimpleExecutor(objectBuilder);
         var testPlanMock = mock(ITestPlan.class);
@@ -77,9 +73,16 @@ public class SimpleExecutorTest {
         Assert.assertEquals("Only one result should be received", 1, actualResults.size());
         Assert.assertEquals("Result should be fail", TestStatus.FAILED, actualResults.get(0).getStatus());
 
-        verify(testClass, times(0)).success();
-        verify(testClass, times(1)).fail();
-        verify(testClass, times(0)).invocationIssue(any());
+        invocationCountHelper(0, 1, 0);
+    }
+
+    @Test
+    public void
+
+    private void invocationCountHelper(int success, int fail, int invocationIssue) {
+        verify(testClass, times(success)).success();
+        verify(testClass, times(fail)).fail();
+        verify(testClass, times(invocationIssue)).invocationIssue(any());
     }
 
     interface ITestClassFramework {

@@ -7,6 +7,7 @@ import csepanda.munit.runner.core.TestStatus;
 import csepanda.munit.runner.services.IExecutor;
 import csepanda.munit.runner.services.ITestClassBuilder;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class SimpleExecutor implements IExecutor {
@@ -28,11 +29,10 @@ public class SimpleExecutor implements IExecutor {
 
                 method.invoke(object);
                 results.add(success(test));
-            } catch (ReflectiveOperationException e) {
-                // TODO add stack trace analysis here to avoid invalid test's status
-                results.add(notRunned(test, e));
+            } catch (InvocationTargetException e) {
+                results.add(failed(test, e.getTargetException()));
             } catch (Exception e) {
-                results.add(failed(test, e));
+                results.add(notRunned(test, e));
             }
         }
 
@@ -43,11 +43,11 @@ public class SimpleExecutor implements IExecutor {
         return new TestResult(TestStatus.SUCCESS, test);
     }
 
-    private TestResult failed(TestPlanRecord test, Exception exception) {
+    private TestResult failed(TestPlanRecord test, Throwable exception) {
        return new TestResult(TestStatus.FAILED, test, exception);
     }
 
-    private TestResult notRunned(TestPlanRecord test, Exception exception) {
+    private TestResult notRunned(TestPlanRecord test, Throwable exception) {
         return new TestResult(TestStatus.NOT_RUNNED, test, exception);
     }
 }
