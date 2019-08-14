@@ -13,9 +13,12 @@ public class Launcher implements ILauncher {
 
     @Override
     public Iterable<TestResult> launch(Iterable<Class<?>> classes) {
-        var plan = planner.plan(classes);
-        var results = executor.execute(plan);
+        if (classes == null) {
+            throw new IllegalArgumentException("classes argument should not be null");
+        }
 
-        return results;
+        var plan = planner.plan(classes);
+
+        return executor.execute(plan);
     }
 }
