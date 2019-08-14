@@ -2,6 +2,7 @@ package csepanda.munit.launcher;
 
 import com.beust.jcommander.JCommander;
 import csepanda.munit.launcher.options.LauncherOptions;
+import csepanda.munit.runner.services.ReportPrinter;
 
 public class Launcher {
     private LauncherServicesProducer servicesProducer = new LauncherServicesProducer();
@@ -16,13 +17,12 @@ public class Launcher {
 
         var classes = loadClasses(options);
         var launcher = servicesProducer.launcher(options);
+        var printer = new ReportPrinter(System.out);
 
         try {
             var results = launcher.launch(classes);
 
-            for (var result : results) {
-                System.out.println(result.getTest().getName() + " " + result.getStatus());
-            }
+            printer.print(results);
         } catch (Exception e) {
             handleError("Error occurred during the test execution", e);
         }
