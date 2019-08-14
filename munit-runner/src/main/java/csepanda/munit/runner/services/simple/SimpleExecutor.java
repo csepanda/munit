@@ -19,6 +19,10 @@ public class SimpleExecutor implements IExecutor {
 
     @Override
     public Iterable<TestResult> execute(final ITestPlan testPlan) {
+        if (testPlan == null) {
+            throw new IllegalArgumentException("testPlan should not be null");
+        }
+
         var results = new ArrayList<TestResult>();
         var plan = testPlan.getPlan();
 

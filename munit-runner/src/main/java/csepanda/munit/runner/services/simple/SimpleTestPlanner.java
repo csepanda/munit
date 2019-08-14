@@ -8,6 +8,10 @@ import csepanda.munit.runner.services.TestAnnotationFilter;
 
 public class SimpleTestPlanner implements ITestPlanner {
     public ITestPlan plan(Iterable<Class<?>> classes) {
+        if (classes == null) {
+            throw new IllegalArgumentException("classes should not be null");
+        }
+
         var testPlan = new SimpleTestPlan();
         var annotationFilter = new TestAnnotationFilter();
 

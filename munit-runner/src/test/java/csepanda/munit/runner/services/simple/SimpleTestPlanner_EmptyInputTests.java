@@ -38,6 +38,11 @@ public class SimpleTestPlanner_EmptyInputTests {
         Assert.assertEquals("Plan from EmptyClass should not provide filled plan", 0, actualResults.size());
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void nullInput() {
+        planner.plan(null);
+    }
+
     @Test
     public void classWithoutTestAnnotations() {
         class ClassWithoutAnnotations {

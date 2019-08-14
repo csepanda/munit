@@ -36,6 +36,14 @@ public class SimpleExecutorTest {
         this.invoicationIssueMethod = testClass.getClass().getMethod("invocationIssue", Object.class);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void nullArgument() {
+        var executor = new SimpleExecutor(objectBuilder);
+
+        executor.execute(null);
+
+    }
+
     @Test
     public void successSingleTest() {
         var executor = new SimpleExecutor(objectBuilder);
