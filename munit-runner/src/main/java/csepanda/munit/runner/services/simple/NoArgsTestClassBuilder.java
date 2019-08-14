@@ -2,8 +2,6 @@ package csepanda.munit.runner.services.simple;
 
 import csepanda.munit.runner.services.ITestClassBuilder;
 
-import java.lang.reflect.InvocationTargetException;
-
 public class NoArgsTestClassBuilder implements ITestClassBuilder {
 
     @Override
