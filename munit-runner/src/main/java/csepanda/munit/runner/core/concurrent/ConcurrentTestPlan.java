@@ -19,7 +19,7 @@ public class ConcurrentTestPlan implements ITestPlan {
     }
 
     @Override
-    public long getPlanSize() {
+    public int getPlanSize() {
         return plan.size();
     }
 

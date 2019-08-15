@@ -41,7 +41,6 @@ public class ExecutorTests {
         var executor = new Executor(objectBuilder);
 
         executor.execute(null);
-
     }
 
     @Test

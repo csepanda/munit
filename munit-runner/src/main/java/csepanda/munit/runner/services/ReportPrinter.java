@@ -4,15 +4,29 @@ import csepanda.munit.runner.core.TestResult;
 
 import java.io.PrintStream;
 
+/**
+ * Implementation of IReportPrinter that prints report to the provided PrintStream.
+ */
 public class ReportPrinter implements IReportPrinter {
     private final PrintStream out;
     private final boolean verbose;
 
+    /**
+     * Constructs instance of ReportPrinter.
+     *
+     * @param out PrintStream where report will be printed.
+     * @param verbose if true then exceptions stacktrace will be printed to out.
+     */
     public ReportPrinter(PrintStream out, boolean verbose) {
         this.out = out;
         this.verbose = verbose;
     }
 
+    /**
+     * Constructs instance of non-verbose ReportPrinter that doesn't print stacktrace of throwed exceptions
+     *
+     * @param out PrintStream where report will be printed.
+     */
     public ReportPrinter(PrintStream out) {
         this.out = out;
         this.verbose = false;
