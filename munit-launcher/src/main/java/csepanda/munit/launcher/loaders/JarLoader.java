@@ -25,6 +25,7 @@ public class JarLoader implements ILoader {
         var entries = jarFile.entries();
         var list = new ArrayList<Class<?>>();
 
+        // iterate over all files inside jar and load if class file was found
         while (entries.hasMoreElements()) {
             var entry = entries.nextElement();
             var entryName = entry.getName();

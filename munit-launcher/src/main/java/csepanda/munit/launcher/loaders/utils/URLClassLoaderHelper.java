@@ -6,10 +6,13 @@ import java.net.URL;
 import java.util.jar.JarFile;
 
 public class URLClassLoaderHelper {
-    public static URL createURLForJar(String jarPath) throws MalformedURLException {
-        return new URL("jar:file:" + jarPath + "!/");
-    }
-
+    /**
+     * Transform file to url to jar file that is used in URLClassLoader.
+     *
+     * @param file JarFile url of which will be used in URLClassLoader.
+     * @return jar:file URL to this file
+     * @throws MalformedURLException
+     */
     public static URL createURL(JarFile file) throws MalformedURLException {
         return new URL("jar:file:" + file.getName() + "!/");
     }

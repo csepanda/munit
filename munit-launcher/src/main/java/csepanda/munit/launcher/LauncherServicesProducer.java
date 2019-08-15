@@ -43,10 +43,8 @@ class LauncherServicesProducer {
 
         switch (runMode) {
             case SIMPLE:
-                return new TestPlanner();
             case CONCURRENT:
                 return new TestPlanner();
-                // throw new UnsupportedOperationException("Unsupported run mode for test planner: " + runMode);
             default:
                 throw new IllegalStateException("Unexpected value: " + options.getRunMode());
         }

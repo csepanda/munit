@@ -40,6 +40,12 @@ class Launcher {
         }
     }
 
+    /**
+     * Printed occurred error to stderr and throws it wrapped in runtime exception.
+     *
+     * @param message to printed
+     * @param e exception that occurred
+     */
     private void handleError(String message, Exception e) {
         System.err.println(message);
         e.printStackTrace();
