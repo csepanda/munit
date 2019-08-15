@@ -30,7 +30,7 @@ public class TestPlannerTests_SingleTestClass {
     public void setUp() {
         ITestPlanner planner = new TestPlanner();
 
-        var plan = planner.plan(List.of(SimpleTestClass.class));
+        var plan = planner.plan(List.of(TestClassesData.FooAndBarMethods.class));
         this.plan = iterableToArray(plan.getPlan());
     }
 
@@ -50,13 +50,13 @@ public class TestPlannerTests_SingleTestClass {
         var fooTest = findByPredicate(plan, x -> x.getTestMethod().getName().equals(this.methodName));
 
         Assert.assertNotNull(fooTest);
-        Assert.assertEquals(SimpleTestClass.class, fooTest.getTestClass());
+        Assert.assertEquals(TestClassesData.FooAndBarMethods.class, fooTest.getTestClass());
     }
 
     @Test
     public void verifyTestMethod() throws NoSuchMethodException {
         var fooTest = findByPredicate(plan, x -> x.getTestMethod().getName().equals(this.methodName));
-        var expectedMethod = SimpleTestClass.class.getMethod(this.methodName);
+        var expectedMethod = TestClassesData.FooAndBarMethods.class.getMethod(this.methodName);
 
         Assert.assertNotNull(fooTest);
         Assert.assertEquals(expectedMethod, fooTest.getTestMethod());
@@ -65,8 +65,8 @@ public class TestPlannerTests_SingleTestClass {
     @Test
     public void verifyTestName() throws NoSuchMethodException {
         var fooTest = findByPredicate(plan, x -> x.getTestMethod().getName().equals(this.methodName));
-        var method = SimpleTestClass.class.getMethod(this.methodName);
-        var expectedName = SimpleTestClass.class.getName() + " - " + method.getName();
+        var method = TestClassesData.FooAndBarMethods.class.getMethod(this.methodName);
+        var expectedName = TestClassesData.FooAndBarMethods.class.getName() + " - " + method.getName();
 
         Assert.assertNotNull(fooTest);
         Assert.assertEquals(expectedName, fooTest.getName());
@@ -84,16 +84,5 @@ public class TestPlannerTests_SingleTestClass {
 
         planRecords.forEach(resultingList::add);
         return resultingList;
-    }
-
-    private class SimpleTestClass
-    {
-        @SuppressWarnings({"unused", "EmptyMethod"})
-        @csepanda.munit.annotation.Test
-        public void foo() { }
-
-        @SuppressWarnings({"unused", "EmptyMethod"})
-        @csepanda.munit.annotation.Test
-        public void bar() { }
     }
 }

@@ -20,7 +20,10 @@ public class TestPlannerTests_SeveralTestClasses {
 
     @Parameterized.Parameters
     public static Collection<Object[]> cases() {
-        return Arrays.asList(new Object[]{"foo", FirstTestClass.class}, new Object[]{"bar", SecondTestClass.class});
+        return Arrays.asList(
+            new Object[]{"foo", TestClassesData.SingleFooMethod.class},
+            new Object[]{"bar", TestClassesData.SingleBarMethod.class}
+        );
     }
 
     @Parameterized.Parameter
@@ -33,7 +36,7 @@ public class TestPlannerTests_SeveralTestClasses {
     public void setUp() {
         ITestPlanner planner = new TestPlanner();
 
-        var plan = planner.plan(List.of(FirstTestClass.class, SecondTestClass.class));
+        var plan = planner.plan(List.of(TestClassesData.SingleFooMethod.class, TestClassesData.SingleBarMethod.class));
         this.plan = iterableToArray(plan.getPlan());
     }
 
@@ -87,19 +90,5 @@ public class TestPlannerTests_SeveralTestClasses {
 
         planRecords.forEach(resultingList::add);
         return resultingList;
-    }
-
-    class FirstTestClass
-    {
-        @SuppressWarnings({"unused", "EmptyMethod"})
-        @csepanda.munit.annotation.Test
-        public void foo() { }
-    }
-
-    class SecondTestClass
-    {
-        @SuppressWarnings({"unused", "EmptyMethod"})
-        @csepanda.munit.annotation.Test
-        public void bar() { }
     }
 }

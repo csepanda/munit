@@ -21,12 +21,15 @@ public class TestPlannerTests_InheritanceInTestClass {
 
     @Parameterized.Parameters(name = "{index}: {0}, {2}")
     public static Collection<Object[]> cases() {
+        var derived = TestClassesData.DerivedWithOverloadClass.class;
+        var superClass = TestClassesData.BaseClass.class;
+
         return Arrays.asList(
-            new Object[]{"foo", SimpleTestClass.class, SimpleTestClass.class.getSimpleName()},
-            new Object[]{"bar", SimpleTestClass.class, SimpleTestClass.class.getSimpleName()},
-            new Object[]{"foobar", SimpleTestClass.class, SimpleTestClass.class.getSimpleName()},
-            new Object[]{"foo", SuperTestClass.class, SuperTestClass.class.getSimpleName()},
-            new Object[]{"foobar", SuperTestClass.class, SuperTestClass.class.getSimpleName()}
+            new Object[]{"foo", derived, derived.getSimpleName()},
+            new Object[]{"bar", derived, derived.getSimpleName()},
+            new Object[]{"foobar", derived, derived.getSimpleName()},
+            new Object[]{"foo", superClass, superClass.getSimpleName()},
+            new Object[]{"foobar", superClass, superClass.getSimpleName()}
         );
     }
 
@@ -43,7 +46,11 @@ public class TestPlannerTests_InheritanceInTestClass {
     public void setUp() {
         ITestPlanner planner = new TestPlanner();
 
-        var plan = planner.plan(List.of(SimpleTestClass.class, SuperTestClass.class));
+        var plan = planner.plan(List.of(
+            TestClassesData.DerivedWithOverloadClass.class,
+            TestClassesData.BaseClass.class
+        ));
+
         this.plan = iterableToArray(plan.getPlan());
         this.currentPlanRecord = findCurrentTest();
     }
@@ -102,30 +109,5 @@ public class TestPlannerTests_InheritanceInTestClass {
 
         planRecords.forEach(resultingList::add);
         return resultingList;
-    }
-
-    class SimpleTestClass extends SuperTestClass {
-        @SuppressWarnings({"unused", "EmptyMethod"})
-        @csepanda.munit.annotation.Test
-        public void foo() {
-        }
-
-        @SuppressWarnings({"unused", "EmptyMethod"})
-        @csepanda.munit.annotation.Test
-        public void bar() {
-        }
-    }
-
-    class SuperTestClass {
-        @SuppressWarnings({"unused", "EmptyMethod"})
-        @csepanda.munit.annotation.Test
-        public void foo() {
-        }
-
-        @SuppressWarnings({"unused", "EmptyMethod"})
-        @csepanda.munit.annotation.Test
-        public void foobar() {
-        }
-
     }
 }
