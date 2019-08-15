@@ -8,11 +8,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.function.Predicate;
+
+import static csepanda.munit.runner.services.simple.utils.Helpers.findByPredicate;
+import static csepanda.munit.runner.services.simple.utils.Helpers.iterableToArray;
 
 @RunWith(Parameterized.class)
 public class TestPlannerTests_InheritanceInTestClass {
@@ -95,19 +96,5 @@ public class TestPlannerTests_InheritanceInTestClass {
                 x.getTestClass().getSimpleName().equals(className))
             .findAny()
             .orElse(null);
-    }
-
-    private <T> T findByPredicate(List<T> source, Predicate<T> predicate) {
-        return source.stream()
-            .filter(predicate)
-            .findAny()
-            .orElse(null);
-    }
-
-    private List<TestPlanRecord> iterableToArray(Iterable<TestPlanRecord> planRecords) {
-        var resultingList = new ArrayList<TestPlanRecord>();
-
-        planRecords.forEach(resultingList::add);
-        return resultingList;
     }
 }

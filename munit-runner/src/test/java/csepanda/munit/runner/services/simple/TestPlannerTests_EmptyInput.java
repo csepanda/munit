@@ -6,8 +6,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import static csepanda.munit.runner.services.simple.utils.Helpers.iterableToArray;
 
 public class TestPlannerTests_EmptyInput {
     private ITestPlanner planner;
@@ -57,12 +58,5 @@ public class TestPlannerTests_EmptyInput {
         var actualResults = iterableToArray(plan.getPlan());
 
         Assert.assertEquals("Plan from ClassWithoutAnnotations should not provide filled plan", 0, actualResults.size());
-    }
-
-    private List<TestPlanRecord> iterableToArray(Iterable<TestPlanRecord> planRecords) {
-        var resultingList = new ArrayList<TestPlanRecord>();
-
-        planRecords.forEach(resultingList::add);
-        return resultingList;
     }
 }
