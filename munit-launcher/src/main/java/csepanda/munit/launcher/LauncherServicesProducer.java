@@ -9,6 +9,7 @@ import csepanda.munit.runner.services.simple.Executor;
 import csepanda.munit.runner.services.simple.TestPlanner;
 
 import java.io.IOException;
+import java.util.jar.JarFile;
 
 class LauncherServicesProducer {
     public ILoader loader(LauncherOptions options) throws IOException {
@@ -16,7 +17,7 @@ class LauncherServicesProducer {
 
         switch (sourceType) {
             case JAR:
-                return new JarLoader(options.getSourcesPath());
+                return new JarLoader(new JarFile(options.getSourcesPath()));
             case CLASS:
             case DIRECTORY:
                 throw new UnsupportedOperationException("Unsupported source type: " + sourceType);

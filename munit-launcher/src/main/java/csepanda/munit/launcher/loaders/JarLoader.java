@@ -13,10 +13,10 @@ public class JarLoader implements ILoader {
     private final JarFile jarFile;
     private final URLClassLoader classLoader;
 
-    public JarLoader(String path) throws IOException {
-        this.jarFile = new JarFile(path);
+    public JarLoader(JarFile file) throws IOException {
+        this.jarFile = file;
         this.classLoader = URLClassLoader.newInstance(new URL[]{
-                URLClassLoaderHelper.createURLForJar(path)
+                URLClassLoaderHelper.createURL(file)
         });
     }
 
