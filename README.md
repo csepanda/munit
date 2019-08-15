@@ -23,7 +23,6 @@ Right now core module only provides `@Test` annotation.
 ### mUnit-runner
 
 Runner is module which contain functionality for programmable test running.
-This module is open to extensions. However, right now it supports only non concurrent tests execution.
 
 #### Functionality
 
@@ -34,7 +33,7 @@ This module is open to extensions. However, right now it supports only non concu
 ### mUnit-launcher
 
 This module is purposed to build executable jar file. This jar file is used for tests execution.
-Right know mUnit only support non-concurrent tests running from specified jar file.
+Right know mUnit only support non-concurrent & concurrent tests running from specified jar file.
 
 ```
 Usage: java -jar munit-launcher.jar [options]
@@ -42,9 +41,9 @@ Usage: java -jar munit-launcher.jar [options]
     --help, -h
 
     --mode, -m
-      Options: [simple]
+      Options: [simple, concurrent]
       Default: simple
-      Possible Values: [simple]
+      Possible Values: [simple, concurrent]
     --source-type, -s
       Options: [jar]
       Default: jar
