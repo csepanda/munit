@@ -42,11 +42,78 @@ Usage: java -jar munit-launcher.jar [options]
     --help, -h
 
     --mode, -m
-      Options: [simple, concurrent]
+      Options: [simple]
       Default: simple
-      Possible Values: [simple, concurrent]
+      Possible Values: [simple]
     --source-type, -s
-      Options: [jar, class, directory]
+      Options: [jar]
       Default: jar
-      Possible Values: [jar, class, directory]
+      Possible Values: [jar]
+```
+
+## Examples of usage
+
+Currently there are two example projects:
+- One that shows @Test annotation application on class members.
+- One with success, failed and "not run" method.
+
+## Illegal annotation usage
+
+**Prerequisites**
+
+You need to install munit-core.
+```
+$ ./install.sh
+```
+
+**Steps**
+
+1. Change directory to the examples/illegal-annotation-usage
+2. Try to compile the project `mvn compile`
+
+**Expected result**
+
+Compilation will fail with message that state illegal usage of annotations.
+```
+[ERROR] error: test methods should be public
+[ERROR] error: test methods should be public
+[ERROR] error: test methods should be public
+[ERROR] error: test methods should not return anything
+[ERROR] error: test methods doesn't accept any parameters
+```
+
+
+### Tests
+
+**Prerequisites**
+
+You need to install munit-core and get executable munit-launcher.
+
+```
+$ ./install.sh
+```
+
+**Steps**
+
+1. Change directory to the examples/tests.
+2. Build package with tests: `mvn package`.
+3. Return to the project root direcotry.
+3. Execute munit-launcher with enabled assertions: `java -jar -ea munit-launcher.jar examples/tests/target/tests.jar`
+
+**Expected result**
+
+Tests will run and report will be printed to stdout.
+
+Report:
+```
+TestsInheritance - derivedClassMethod SUCCESS
+TestsInheritance - superFooTest SUCCESS
+TestsInheritance - superBarTest SUCCESS
+SuperTests - superFooTest SUCCESS
+SuperTests - superBarTest SUCCESS
+AbstractNotRunned - testInAsbtractClass NOT_RUNNED
+FailedTests - testWithException FAILED
+FailedTests - testWithNativeAssert FAILED
+SimpleTests - fooTest SUCCESS
+[SUMMARY] success: 6, failed: 2, notRun: 1
 ```
