@@ -3,3 +3,5 @@ build
 target
 out
 .idea
+
+/munit-launcher.jar
