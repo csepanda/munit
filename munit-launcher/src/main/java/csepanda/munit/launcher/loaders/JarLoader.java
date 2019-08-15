@@ -10,14 +10,11 @@ import java.util.ArrayList;
 import java.util.jar.JarFile;
 
 public class JarLoader implements ILoader {
-    private final String jarPath;
     private final JarFile jarFile;
     private final URLClassLoader classLoader;
 
     public JarLoader(String path) throws IOException {
-        this.jarPath = path;
-
-        this.jarFile = new JarFile(jarPath);
+        this.jarFile = new JarFile(path);
         this.classLoader = URLClassLoader.newInstance(new URL[]{
                 URLClassLoaderHelper.createURLForJar(path)
         });

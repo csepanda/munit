@@ -1,22 +1,13 @@
 package csepanda.munit.runner.services;
 
 import csepanda.munit.runner.core.ITestPlan;
-import csepanda.munit.runner.core.TestPlanRecord;
 import csepanda.munit.runner.core.TestResult;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 public class LauncherWhiteBoxTests {
-
-    @Before
-    public void setUp() {
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void nullArgument() {
         ITestPlanner mockPlanner = mock(ITestPlanner.class);

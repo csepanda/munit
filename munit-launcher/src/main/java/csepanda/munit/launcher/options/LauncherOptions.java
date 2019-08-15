@@ -1,7 +1,6 @@
 package csepanda.munit.launcher.options;
 
 import com.beust.jcommander.Parameter;
-import csepanda.munit.launcher.options.convertors.RunModeConvertor;
 import csepanda.munit.launcher.options.convertors.SourceTypeConverter;
 
 public class LauncherOptions {

@@ -4,7 +4,7 @@ import com.beust.jcommander.JCommander;
 import csepanda.munit.launcher.options.LauncherOptions;
 import csepanda.munit.runner.services.ReportPrinter;
 
-public class Launcher {
+class Launcher {
     private LauncherServicesProducer servicesProducer = new LauncherServicesProducer();
 
     public void handle(LauncherOptions options) {

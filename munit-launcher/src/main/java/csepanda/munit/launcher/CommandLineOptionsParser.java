@@ -3,7 +3,7 @@ package csepanda.munit.launcher;
 import com.beust.jcommander.JCommander;
 import csepanda.munit.launcher.options.LauncherOptions;
 
-public class CommandLineOptionsParser {
+class CommandLineOptionsParser {
     public LauncherOptions parse(String[] argv) {
         var options = new LauncherOptions();
 

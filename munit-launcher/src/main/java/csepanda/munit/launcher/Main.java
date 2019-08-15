@@ -1,9 +1,7 @@
 package csepanda.munit.launcher;
 
-import java.io.IOException;
-
 public class Main {
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) {
         var cliParser = new CommandLineOptionsParser();
         var options = cliParser.parse(args);
         var optionsHandler = new Launcher();

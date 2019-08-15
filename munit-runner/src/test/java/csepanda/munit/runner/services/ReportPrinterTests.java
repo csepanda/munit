@@ -6,7 +6,6 @@ import csepanda.munit.runner.core.TestStatus;
 import org.junit.Test;
 
 import java.io.PrintStream;
-import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;

@@ -105,20 +105,24 @@ public class SimpleTestPlanner_InheritanceInTestClass {
     }
 
     class SimpleTestClass extends SuperTestClass {
+        @SuppressWarnings({"unused", "EmptyMethod"})
         @csepanda.munit.annotation.Test
         public void foo() {
         }
 
+        @SuppressWarnings({"unused", "EmptyMethod"})
         @csepanda.munit.annotation.Test
         public void bar() {
         }
     }
 
     class SuperTestClass {
+        @SuppressWarnings({"unused", "EmptyMethod"})
         @csepanda.munit.annotation.Test
         public void foo() {
         }
 
+        @SuppressWarnings({"unused", "EmptyMethod"})
         @csepanda.munit.annotation.Test
         public void foobar() {
         }

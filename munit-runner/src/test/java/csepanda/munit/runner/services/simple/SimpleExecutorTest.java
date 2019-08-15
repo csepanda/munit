@@ -20,7 +20,7 @@ public class SimpleExecutorTest {
     private ITestClassBuilder objectBuilder;
     private Method successMethod;
     private Method failMethod;
-    private Method invoicationIssueMethod;
+    private Method invocationIssueMethod;
 
     @Before
     public void setUp() throws ReflectiveOperationException {
@@ -33,7 +33,7 @@ public class SimpleExecutorTest {
 
         this.successMethod = testClass.getClass().getMethod("success");
         this.failMethod = testClass.getClass().getMethod("fail");
-        this.invoicationIssueMethod = testClass.getClass().getMethod("invocationIssue", Object.class);
+        this.invocationIssueMethod = testClass.getClass().getMethod("invocationIssue", Object.class);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -90,7 +90,7 @@ public class SimpleExecutorTest {
         var testPlanMock = mock(ITestPlan.class);
 
         when(testPlanMock.getPlan()).thenReturn(Collections.singletonList(
-            new TestPlanRecord(this.invoicationIssueMethod, ITestClassFramework.class)
+            new TestPlanRecord(this.invocationIssueMethod, ITestClassFramework.class)
         ));
 
         var testResults = executor.execute(testPlanMock);

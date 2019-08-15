@@ -4,13 +4,11 @@ import csepanda.munit.runner.core.TestPlanRecord;
 import csepanda.munit.runner.services.ITestPlanner;
 import csepanda.munit.runner.services.simple.SimpleTestPlanner;
 import org.junit.Assert;
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -89,11 +87,13 @@ public class SimpleTestPlanner_SimpleSingleTestClass {
         return resultingList;
     }
 
-    class SimpleTestClass
+    private class SimpleTestClass
     {
+        @SuppressWarnings({"unused", "EmptyMethod"})
         @csepanda.munit.annotation.Test
         public void foo() { }
 
+        @SuppressWarnings({"unused", "EmptyMethod"})
         @csepanda.munit.annotation.Test
         public void bar() { }
     }

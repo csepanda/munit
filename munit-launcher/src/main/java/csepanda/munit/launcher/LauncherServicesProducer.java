@@ -10,7 +10,7 @@ import csepanda.munit.runner.services.simple.SimpleTestPlanner;
 
 import java.io.IOException;
 
-public class LauncherServicesProducer {
+class LauncherServicesProducer {
     public ILoader loader(LauncherOptions options) throws IOException {
         var sourceType = options.getSourceType();
 

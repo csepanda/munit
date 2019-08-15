@@ -18,7 +18,7 @@ public class NoArgsTestClassBuilderTest {
     @Test(expected = ReflectiveOperationException.class)
     public void failOnConstructorWithArgs() throws ReflectiveOperationException {
         class TestClass {
-            public TestClass(Object arg) {
+            public TestClass(@SuppressWarnings("unused") Object arg) {
 
             }
         }

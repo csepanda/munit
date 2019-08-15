@@ -1,7 +1,6 @@
 package csepanda.munit.launcher.options.convertors;
 
 import com.beust.jcommander.IStringConverter;
-import csepanda.munit.launcher.options.RunMode;
 import csepanda.munit.launcher.options.SourceType;
 
 public class SourceTypeConverter implements IStringConverter<SourceType> {

@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 
 public class SimpleTestPlanner_EmptyInputTests {
     private ITestPlanner planner;
@@ -46,9 +45,11 @@ public class SimpleTestPlanner_EmptyInputTests {
     @Test
     public void classWithoutTestAnnotations() {
         class ClassWithoutAnnotations {
+            @SuppressWarnings({"unused", "EmptyMethod"})
             public void foo() {
             }
 
+            @SuppressWarnings({"unused", "EmptyMethod"})
             public void bar() {
             }
         }
@@ -57,13 +58,6 @@ public class SimpleTestPlanner_EmptyInputTests {
         var actualResults = iterableToArray(plan.getPlan());
 
         Assert.assertEquals("Plan from ClassWithoutAnnotations should not provide filled plan", 0, actualResults.size());
-    }
-
-    private <T> T findByPredicate(List<T> source, Predicate<T> predicate) {
-        return source.stream()
-            .filter(predicate)
-            .findAny()
-            .orElse(null);
     }
 
     private List<TestPlanRecord> iterableToArray(Iterable<TestPlanRecord> planRecords) {

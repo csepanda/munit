@@ -3,7 +3,7 @@ package csepanda.munit.launcher.options.convertors;
 import com.beust.jcommander.IStringConverter;
 import csepanda.munit.launcher.options.RunMode;
 
-public class RunModeConvertor implements IStringConverter<RunMode> {
+class RunModeConverter implements IStringConverter<RunMode> {
     @Override
     public RunMode convert(String s) {
         switch (s) {

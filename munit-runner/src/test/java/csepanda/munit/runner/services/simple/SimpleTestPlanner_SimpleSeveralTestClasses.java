@@ -91,12 +91,14 @@ public class SimpleTestPlanner_SimpleSeveralTestClasses {
 
     class FirstTestClass
     {
+        @SuppressWarnings({"unused", "EmptyMethod"})
         @csepanda.munit.annotation.Test
         public void foo() { }
     }
 
     class SecondTestClass
     {
+        @SuppressWarnings({"unused", "EmptyMethod"})
         @csepanda.munit.annotation.Test
         public void bar() { }
     }
