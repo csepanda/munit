@@ -15,12 +15,19 @@ import java.util.List;
 import java.util.function.Predicate;
 
 @RunWith(Parameterized.class)
-public class SimpleTestPlanner_SimpleSeveralTestClasses {
+public class TestPlannerTests_InheritanceInTestClass {
     private List<TestPlanRecord> plan;
+    private TestPlanRecord currentPlanRecord;
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "{index}: {0}, {2}")
     public static Collection<Object[]> cases() {
-        return Arrays.asList(new Object[]{"foo", FirstTestClass.class}, new Object[]{"bar", SecondTestClass.class});
+        return Arrays.asList(
+            new Object[]{"foo", SimpleTestClass.class, SimpleTestClass.class.getSimpleName()},
+            new Object[]{"bar", SimpleTestClass.class, SimpleTestClass.class.getSimpleName()},
+            new Object[]{"foobar", SimpleTestClass.class, SimpleTestClass.class.getSimpleName()},
+            new Object[]{"foo", SuperTestClass.class, SuperTestClass.class.getSimpleName()},
+            new Object[]{"foobar", SuperTestClass.class, SuperTestClass.class.getSimpleName()}
+        );
     }
 
     @Parameterized.Parameter
@@ -29,17 +36,21 @@ public class SimpleTestPlanner_SimpleSeveralTestClasses {
     @Parameterized.Parameter(1)
     public Class<?> testClass;
 
+    @Parameterized.Parameter(2)
+    public String className;
+
     @Before
     public void setUp() {
-        ITestPlanner planner = new SimpleTestPlanner();
+        ITestPlanner planner = new TestPlanner();
 
-        var plan = planner.plan(List.of(FirstTestClass.class, SecondTestClass.class));
+        var plan = planner.plan(List.of(SimpleTestClass.class, SuperTestClass.class));
         this.plan = iterableToArray(plan.getPlan());
+        this.currentPlanRecord = findCurrentTest();
     }
 
     @Test
     public void assertTestMethodCount() {
-        Assert.assertEquals(2, plan.size());
+        Assert.assertEquals(5, plan.size());
 
         var fooTest = findByPredicate(plan, x -> x.getTestMethod().getName().equals("foo"));
         var barTest = findByPredicate(plan, x -> x.getTestMethod().getName().equals("foo"));
@@ -50,29 +61,33 @@ public class SimpleTestPlanner_SimpleSeveralTestClasses {
 
     @Test
     public void verifyTestClass() {
-        var fooTest = findByPredicate(plan, x -> x.getTestMethod().getName().equals(this.methodName));
-
-        Assert.assertNotNull(fooTest);
-        Assert.assertEquals(testClass, fooTest.getTestClass());
+        Assert.assertNotNull(currentPlanRecord);
+        Assert.assertEquals(testClass, currentPlanRecord.getTestClass());
     }
 
     @Test
     public void verifyTestMethod() throws NoSuchMethodException {
-        var fooTest = findByPredicate(plan, x -> x.getTestMethod().getName().equals(this.methodName));
         var expectedMethod = testClass.getMethod(this.methodName);
 
-        Assert.assertNotNull(fooTest);
-        Assert.assertEquals(expectedMethod, fooTest.getTestMethod());
+        Assert.assertNotNull(currentPlanRecord);
+        Assert.assertEquals(expectedMethod, currentPlanRecord.getTestMethod());
     }
 
     @Test
     public void verifyTestName() throws NoSuchMethodException {
-        var fooTest = findByPredicate(plan, x -> x.getTestMethod().getName().equals(this.methodName));
         var method = testClass.getMethod(this.methodName);
         var expectedName = testClass.getName() + " - " + method.getName();
 
-        Assert.assertNotNull(fooTest);
-        Assert.assertEquals(expectedName, fooTest.getName());
+        Assert.assertNotNull(currentPlanRecord);
+        Assert.assertEquals(expectedName, currentPlanRecord.getName());
+    }
+
+    private TestPlanRecord findCurrentTest() {
+        return this.plan.stream()
+            .filter(x -> x.getTestMethod().getName().equals(methodName) &&
+                x.getTestClass().getSimpleName().equals(className))
+            .findAny()
+            .orElse(null);
     }
 
     private <T> T findByPredicate(List<T> source, Predicate<T> predicate) {
@@ -89,17 +104,28 @@ public class SimpleTestPlanner_SimpleSeveralTestClasses {
         return resultingList;
     }
 
-    class FirstTestClass
-    {
+    class SimpleTestClass extends SuperTestClass {
         @SuppressWarnings({"unused", "EmptyMethod"})
         @csepanda.munit.annotation.Test
-        public void foo() { }
+        public void foo() {
+        }
+
+        @SuppressWarnings({"unused", "EmptyMethod"})
+        @csepanda.munit.annotation.Test
+        public void bar() {
+        }
     }
 
-    class SecondTestClass
-    {
+    class SuperTestClass {
         @SuppressWarnings({"unused", "EmptyMethod"})
         @csepanda.munit.annotation.Test
-        public void bar() { }
+        public void foo() {
+        }
+
+        @SuppressWarnings({"unused", "EmptyMethod"})
+        @csepanda.munit.annotation.Test
+        public void foobar() {
+        }
+
     }
 }

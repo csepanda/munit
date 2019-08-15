@@ -2,7 +2,6 @@ package csepanda.munit.runner.services.simple;
 
 import csepanda.munit.runner.core.TestPlanRecord;
 import csepanda.munit.runner.services.ITestPlanner;
-import csepanda.munit.runner.services.simple.SimpleTestPlanner;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,12 +9,12 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleTestPlanner_EmptyInputTests {
+public class TestPlannerTests_EmptyInput {
     private ITestPlanner planner;
 
     @Before
     public void setUp() {
-        this.planner = new SimpleTestPlanner();
+        this.planner = new TestPlanner();
     }
 
     @Test

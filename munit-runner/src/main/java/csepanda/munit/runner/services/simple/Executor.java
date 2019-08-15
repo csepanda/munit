@@ -10,10 +10,10 @@ import csepanda.munit.runner.services.ITestClassBuilder;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-public class SimpleExecutor implements IExecutor {
+public class Executor implements IExecutor {
     private ITestClassBuilder builder;
 
-    public SimpleExecutor(ITestClassBuilder builder) {
+    public Executor(ITestClassBuilder builder) {
         this.builder = builder;
     }
 

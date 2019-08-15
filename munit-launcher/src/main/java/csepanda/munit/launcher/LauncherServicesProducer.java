@@ -5,8 +5,8 @@ import csepanda.munit.launcher.loaders.JarLoader;
 import csepanda.munit.launcher.options.LauncherOptions;
 import csepanda.munit.runner.services.*;
 import csepanda.munit.runner.services.simple.NoArgsTestClassBuilder;
-import csepanda.munit.runner.services.simple.SimpleExecutor;
-import csepanda.munit.runner.services.simple.SimpleTestPlanner;
+import csepanda.munit.runner.services.simple.Executor;
+import csepanda.munit.runner.services.simple.TestPlanner;
 
 import java.io.IOException;
 
@@ -42,7 +42,7 @@ class LauncherServicesProducer {
 
         switch (runMode) {
             case SIMPLE:
-                return new SimpleTestPlanner();
+                return new TestPlanner();
             case CONCURRENT:
                 throw new UnsupportedOperationException("Unsupported run mode for test planner: " + runMode);
             default:
@@ -55,7 +55,7 @@ class LauncherServicesProducer {
 
         switch (runMode) {
             case SIMPLE:
-                return new SimpleExecutor(classBuilder(options));
+                return new Executor(classBuilder(options));
             case CONCURRENT:
                 throw new UnsupportedOperationException("Unsupported run mode for executor: " + runMode);
             default:

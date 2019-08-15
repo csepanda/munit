@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class NoArgsTestClassBuilderTest {
+public class NoArgsTestClassBuilderTests {
 
     @Test
     public void buildClass() throws ReflectiveOperationException {

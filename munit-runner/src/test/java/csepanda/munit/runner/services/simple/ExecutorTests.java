@@ -15,7 +15,7 @@ import java.util.Collections;
 
 import static org.mockito.Mockito.*;
 
-public class SimpleExecutorTest {
+public class ExecutorTests {
     private ITestClassFramework testClass;
     private ITestClassBuilder objectBuilder;
     private Method successMethod;
@@ -38,7 +38,7 @@ public class SimpleExecutorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void nullArgument() {
-        var executor = new SimpleExecutor(objectBuilder);
+        var executor = new Executor(objectBuilder);
 
         executor.execute(null);
 
@@ -46,7 +46,7 @@ public class SimpleExecutorTest {
 
     @Test
     public void successSingleTest() {
-        var executor = new SimpleExecutor(objectBuilder);
+        var executor = new Executor(objectBuilder);
         var testPlanMock = mock(ITestPlan.class);
 
         when(testPlanMock.getPlan()).thenReturn(Collections.singletonList(
@@ -66,7 +66,7 @@ public class SimpleExecutorTest {
 
     @Test
     public void failSingleTest() {
-        var executor = new SimpleExecutor(objectBuilder);
+        var executor = new Executor(objectBuilder);
         var testPlanMock = mock(ITestPlan.class);
 
         when(testPlanMock.getPlan()).thenReturn(Collections.singletonList(
@@ -86,7 +86,7 @@ public class SimpleExecutorTest {
 
     @Test
     public void invocationIssueSingleTest() {
-        var executor = new SimpleExecutor(objectBuilder);
+        var executor = new Executor(objectBuilder);
         var testPlanMock = mock(ITestPlan.class);
 
         when(testPlanMock.getPlan()).thenReturn(Collections.singletonList(

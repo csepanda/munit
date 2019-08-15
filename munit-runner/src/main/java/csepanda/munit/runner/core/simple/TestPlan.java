@@ -6,10 +6,10 @@ import csepanda.munit.runner.core.TestPlanRecord;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SimpleTestPlan implements ITestPlan {
+public class TestPlan implements ITestPlan {
     private final List<TestPlanRecord> plan;
 
-    public SimpleTestPlan() {
+    public TestPlan() {
         this.plan = new ArrayList<>();
     }
 

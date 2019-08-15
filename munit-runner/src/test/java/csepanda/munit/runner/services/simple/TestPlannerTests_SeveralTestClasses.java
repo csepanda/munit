@@ -2,7 +2,6 @@ package csepanda.munit.runner.services.simple;
 
 import csepanda.munit.runner.core.TestPlanRecord;
 import csepanda.munit.runner.services.ITestPlanner;
-import csepanda.munit.runner.services.simple.SimpleTestPlanner;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,22 +15,25 @@ import java.util.List;
 import java.util.function.Predicate;
 
 @RunWith(Parameterized.class)
-public class SimpleTestPlanner_SimpleSingleTestClass {
+public class TestPlannerTests_SeveralTestClasses {
     private List<TestPlanRecord> plan;
 
     @Parameterized.Parameters
     public static Collection<Object[]> cases() {
-        return Arrays.asList(new Object[]{"foo"}, new Object[]{"bar"});
+        return Arrays.asList(new Object[]{"foo", FirstTestClass.class}, new Object[]{"bar", SecondTestClass.class});
     }
 
     @Parameterized.Parameter
     public String methodName;
 
+    @Parameterized.Parameter(1)
+    public Class<?> testClass;
+
     @Before
     public void setUp() {
-        ITestPlanner planner = new SimpleTestPlanner();
+        ITestPlanner planner = new TestPlanner();
 
-        var plan = planner.plan(List.of(SimpleTestClass.class));
+        var plan = planner.plan(List.of(FirstTestClass.class, SecondTestClass.class));
         this.plan = iterableToArray(plan.getPlan());
     }
 
@@ -51,13 +53,13 @@ public class SimpleTestPlanner_SimpleSingleTestClass {
         var fooTest = findByPredicate(plan, x -> x.getTestMethod().getName().equals(this.methodName));
 
         Assert.assertNotNull(fooTest);
-        Assert.assertEquals(SimpleTestClass.class, fooTest.getTestClass());
+        Assert.assertEquals(testClass, fooTest.getTestClass());
     }
 
     @Test
     public void verifyTestMethod() throws NoSuchMethodException {
         var fooTest = findByPredicate(plan, x -> x.getTestMethod().getName().equals(this.methodName));
-        var expectedMethod = SimpleTestClass.class.getMethod(this.methodName);
+        var expectedMethod = testClass.getMethod(this.methodName);
 
         Assert.assertNotNull(fooTest);
         Assert.assertEquals(expectedMethod, fooTest.getTestMethod());
@@ -66,8 +68,8 @@ public class SimpleTestPlanner_SimpleSingleTestClass {
     @Test
     public void verifyTestName() throws NoSuchMethodException {
         var fooTest = findByPredicate(plan, x -> x.getTestMethod().getName().equals(this.methodName));
-        var method = SimpleTestClass.class.getMethod(this.methodName);
-        var expectedName = SimpleTestClass.class.getName() + " - " + method.getName();
+        var method = testClass.getMethod(this.methodName);
+        var expectedName = testClass.getName() + " - " + method.getName();
 
         Assert.assertNotNull(fooTest);
         Assert.assertEquals(expectedName, fooTest.getName());
@@ -87,12 +89,15 @@ public class SimpleTestPlanner_SimpleSingleTestClass {
         return resultingList;
     }
 
-    private class SimpleTestClass
+    class FirstTestClass
     {
         @SuppressWarnings({"unused", "EmptyMethod"})
         @csepanda.munit.annotation.Test
         public void foo() { }
+    }
 
+    class SecondTestClass
+    {
         @SuppressWarnings({"unused", "EmptyMethod"})
         @csepanda.munit.annotation.Test
         public void bar() { }

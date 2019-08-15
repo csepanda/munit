@@ -2,17 +2,17 @@ package csepanda.munit.runner.services.simple;
 
 import csepanda.munit.runner.core.ITestPlan;
 import csepanda.munit.runner.core.TestPlanRecord;
-import csepanda.munit.runner.core.simple.SimpleTestPlan;
+import csepanda.munit.runner.core.simple.TestPlan;
 import csepanda.munit.runner.services.ITestPlanner;
 import csepanda.munit.runner.services.TestAnnotationFilter;
 
-public class SimpleTestPlanner implements ITestPlanner {
+public class TestPlanner implements ITestPlanner {
     public ITestPlan plan(Iterable<Class<?>> classes) {
         if (classes == null) {
             throw new IllegalArgumentException("classes should not be null");
         }
 
-        var testPlan = new SimpleTestPlan();
+        var testPlan = new TestPlan();
         var annotationFilter = new TestAnnotationFilter();
 
         for (var clazz : classes) {
