@@ -18,6 +18,11 @@ public class ConcurrentTestPlan implements ITestPlan {
         return plan.values();
     }
 
+    @Override
+    public long getPlanSize() {
+        return plan.size();
+    }
+
     public void addTest(TestPlanRecord record) {
         // as record's name should be unique
         this.plan.put(record.getName(), record);

@@ -19,6 +19,11 @@ public class TestPlan implements ITestPlan {
     }
 
     @Override
+    public long getPlanSize() {
+        return plan.size();
+    }
+
+    @Override
     public void addTest(TestPlanRecord record) {
         this.plan.add(record);
     }
