@@ -4,6 +4,7 @@ import csepanda.munit.launcher.loaders.ILoader;
 import csepanda.munit.launcher.loaders.JarLoader;
 import csepanda.munit.launcher.options.LauncherOptions;
 import csepanda.munit.runner.services.*;
+import csepanda.munit.runner.services.concurrent.ConcurrentExecutor;
 import csepanda.munit.runner.services.simple.NoArgsTestClassBuilder;
 import csepanda.munit.runner.services.simple.Executor;
 import csepanda.munit.runner.services.simple.TestPlanner;
@@ -30,9 +31,8 @@ class LauncherServicesProducer {
 
         switch (runMode) {
             case SIMPLE:
-                return new csepanda.munit.runner.services.Launcher(testPlanner(options), executor(options));
             case CONCURRENT:
-                throw new UnsupportedOperationException("Unsupported run mode for launcher: " + runMode);
+                return new csepanda.munit.runner.services.Launcher(testPlanner(options), executor(options));
             default:
                 throw new IllegalStateException("Unexpected value: " + options.getRunMode());
         }
@@ -45,7 +45,8 @@ class LauncherServicesProducer {
             case SIMPLE:
                 return new TestPlanner();
             case CONCURRENT:
-                throw new UnsupportedOperationException("Unsupported run mode for test planner: " + runMode);
+                return new TestPlanner();
+                // throw new UnsupportedOperationException("Unsupported run mode for test planner: " + runMode);
             default:
                 throw new IllegalStateException("Unexpected value: " + options.getRunMode());
         }
@@ -58,7 +59,7 @@ class LauncherServicesProducer {
             case SIMPLE:
                 return new Executor(classBuilder(options));
             case CONCURRENT:
-                throw new UnsupportedOperationException("Unsupported run mode for executor: " + runMode);
+                return new ConcurrentExecutor(classBuilder(options));
             default:
                 throw new IllegalStateException("Unexpected value: " + runMode);
         }

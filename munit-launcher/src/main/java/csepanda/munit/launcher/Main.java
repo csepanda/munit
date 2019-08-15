@@ -9,6 +9,7 @@ public class Main {
         try {
             optionsHandler.handle(options);
         } catch (RuntimeException e) {
+            e.printStackTrace();
             System.exit(2);
         }
     }
