@@ -50,6 +50,19 @@ Usage: java -jar munit-launcher.jar [options]
       Possible Values: [jar]
 ```
 
+## How to use
+
+**Prerequisites**
+
+run `$ ./install.sh` to get executable munit-launcher.jar and locally installed munit-core library.
+
+**Steps**
+
+1. Create module for tests where each test method is annotated with @csepanda.munit.annotation.Test.
+2. Test will fail if exception will throwed or assertion exception occurred (for assertion -ea flag should be passed to java)
+3. Build jar file with tests module.
+4. Execute the following command to run tests: `java -jar -ea munit-launcher.jar examples/tests/target/tests.jar`
+
 ## Examples of usage
 
 Currently there are two example projects:
@@ -116,3 +129,5 @@ FailedTests - testWithNativeAssert FAILED
 SimpleTests - fooTest SUCCESS
 [SUMMARY] success: 6, failed: 2, notRun: 1
 ```
+
+
